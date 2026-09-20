@@ -20,11 +20,17 @@ app.post('/notes',(req,res)=>{
   notes.unshift(note); writeNotes(notes); res.status(201).json(note);
 });
 app.delete('/notes/:id',(req,res)=>{
-  const notes=readNotes(); const updated=notes.filter(n=>n.id!==req.params.id);
-  if(updated.length===notes.length) return res.status(404).json({message:'Note not found.'});
-  writeNotes(updated); res.json({message:'Note deleted successfully.'});
-  app.listen(PORT, "0.0.0.0", () => {
+  const notes=readNotes();
+  const updated=notes.filter(n=>n.id!==req.params.id);
+
+  if(updated.length===notes.length)
+    return res.status(404).json({message:'Note not found.'});
+
+  writeNotes(updated);
+  res.json({message:'Note deleted successfully.'});
+});
+
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Quick Note Application running on port ${PORT}`);
-});
-});
+});next
 
